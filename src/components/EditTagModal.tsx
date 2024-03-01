@@ -14,7 +14,7 @@ const EditTagModal = ({ displayModal,availableTags,onCloseModal,onDeleteTag,onUp
   return (
     <Modal show={displayModal} onHide={onCloseModal}>
       <Modal.Header closeButton>
-        <Modal.Title>Edit Page</Modal.Title>
+        <Modal.Title>Edit Tags</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>

@@ -5,6 +5,7 @@ import ReactSelect from "react-select";
 import NoteCard from "../components/NoteCard";
 import { Tag } from "../App";
 import EditTagModal from "../components/EditTagModal";
+import CreateNoteBanner from "../components/CreateNoteBanner";
 
 export interface  noteWithTags{ 
   id: string,
@@ -113,6 +114,7 @@ const NoteListPage = ({ notes, tags ,onDeleteTag, onUpdateTag}: Props) => {
       </Row>
     </Container>
      <EditTagModal availableTags={tags} onDeleteTag={onDeleteTag} onUpdateTag={onUpdateTag} displayModal={displayModal} onCloseModal={handelCloseModal}/>
+     {notes.length == 0 ? <CreateNoteBanner /> : null}
     </>
   );
 };
