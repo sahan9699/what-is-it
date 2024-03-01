@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ReactSelect from "react-select";
 import NoteCard from "../components/NoteCard";
 import { Tag } from "../App";
+import EditTagModal from "../components/EditTagModal";
 
 export interface  noteWithTags{ 
   id: string,
@@ -17,9 +18,12 @@ export interface  noteWithTags{
 interface Props {
   notes: noteWithTags[];
   tags: Tag[];
+  onUpdateTag: (id: string, label: string) => void
+  onDeleteTag: (id: string) => void
 }
-const NoteListPage = ({ notes, tags }: Props) => {
+const NoteListPage = ({ notes, tags ,onDeleteTag, onUpdateTag}: Props) => {
   const [selectedTags, setSelectedTag] = useState<Tag[]>([]);
+  const [displayModal, setDisplayModal] = useState(false);
   const [title, setTitle] = useState("");
 
   const filteredNotes = useMemo(() => {
@@ -34,7 +38,12 @@ const NoteListPage = ({ notes, tags }: Props) => {
     );
   }, [notes, title, selectedTags]);
 
+  const handelCloseModal = () => {
+    setDisplayModal(!displayModal);
+  }
+
   return (
+    <>
     <Container>
       <Row className="align-items-center mb-4">
         <Col sm={12} md={8}>
@@ -48,7 +57,7 @@ const NoteListPage = ({ notes, tags }: Props) => {
             <Link to="/create">
               <Button variant="primary">Create</Button>
             </Link>
-            <Button variant="outline-secondary" className="ms-1">
+            <Button onClick={handelCloseModal} variant="outline-secondary" className="ms-1">
               Edit Tag
             </Button>
           </Stack>
@@ -103,6 +112,8 @@ const NoteListPage = ({ notes, tags }: Props) => {
         ))}
       </Row>
     </Container>
+     <EditTagModal availableTags={tags} onDeleteTag={onDeleteTag} onUpdateTag={onUpdateTag} displayModal={displayModal} onCloseModal={handelCloseModal}/>
+    </>
   );
 };
 

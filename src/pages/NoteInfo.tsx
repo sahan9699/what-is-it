@@ -1,15 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { noteWithTags } from "./NoteListPage";
 import { Link, Navigate, useOutletContext, useParams } from "react-router-dom";
 import { Badge, Button, Col, Row, Stack } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
+import EditTagModal from "../components/EditTagModal";
+import { Tag } from "../App";
 
 interface Props {
+  tags: Tag[]
   onDeleteNote: (noteId: string) => void;
 }
 
-const NoteInfo = ({onDeleteNote}: Props) => {
+const NoteInfo = ({onDeleteNote, tags}: Props) => {
+
   const selectedNote = useOutletContext<noteWithTags>();
+
+
   return (
     <>
       <Row className="align-items-center mb-4">
@@ -41,6 +47,7 @@ const NoteInfo = ({onDeleteNote}: Props) => {
         </Col>
       </Row>
       <ReactMarkdown>{selectedNote.markDown}</ReactMarkdown>
+     
     </>
   );
 };

@@ -64,6 +64,20 @@ function App() {
   const handelAddTag = (tag: Tag) => {
     setTags((prev) => [...prev, tag]);
   };
+  const handelUpdateTag = (id: string, label: string ) => {
+    const updatedTag = tags.map(tag => {
+      if(tag.id == id) {
+        return {id: tag.id, label: label}
+      }else{
+        return tag
+      }
+    })
+    setTags(updatedTag)
+  }
+  const handelDeleteTag = (id: string) => {
+      const filteredTgas = tags.filter((tag) => tag.id != id)
+      setTags(filteredTgas);
+  }
 
   const handelDeleteNote = (id: string) => {
       const filteredNotes = notes.filter((note) => note.id != id)
@@ -76,7 +90,7 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<NoteListPage notes={notesWithTags} tags={tags} />}
+          element={<NoteListPage notes={notesWithTags} tags={tags} onUpdateTag={handelUpdateTag} onDeleteTag={handelDeleteTag}/>}
         />
         <Route
           path="/create"
@@ -89,7 +103,7 @@ function App() {
           }
         />
         <Route path="/notes/:id" element={<NoteLayoutPage notes={notesWithTags} />}>
-          <Route index  element={<NoteInfo onDeleteNote={handelDeleteNote}/>}/>
+          <Route index  element={<NoteInfo onDeleteNote={handelDeleteNote} tags={tags}/>}/>
           <Route
             path="/notes/:id/edit"
             element={
