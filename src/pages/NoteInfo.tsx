@@ -1,17 +1,15 @@
-import React, { useContext, useState } from "react";
-import { noteWithTags } from "./NoteListPage";
-import { Link, Navigate, useOutletContext, useParams } from "react-router-dom";
 import { Badge, Button, Col, Row, Stack } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
-import EditTagModal from "../components/EditTagModal";
+import { Link, useOutletContext } from "react-router-dom";
 import { Tag } from "../App";
+import { noteWithTags } from "./NoteListPage";
 
 interface Props {
   tags: Tag[]
   onDeleteNote: (noteId: string) => void;
 }
 
-const NoteInfo = ({onDeleteNote, tags}: Props) => {
+const NoteInfo = ({onDeleteNote}: Props) => {
 
   const selectedNote = useOutletContext<noteWithTags>();
 

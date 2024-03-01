@@ -1,4 +1,3 @@
-import React from 'react'
 import { useParams, Navigate, Outlet } from 'react-router-dom';
 import { noteWithTags } from './NoteListPage';
 
